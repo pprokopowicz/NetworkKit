@@ -5,6 +5,7 @@
 //  Created by Piotr Prokopowicz on 08/12/2020.
 //
 
+/// Struct containing information about an error returned from a network request.
 public struct NetworkingError<Response: Decodable>: Error {
     
     /// Value representing http status code in a form of an enum case.
