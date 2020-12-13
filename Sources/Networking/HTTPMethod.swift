@@ -5,9 +5,7 @@
 //  Created by Piotr Prokopowicz on 08/12/2020.
 //
 
-/**
- Enum type representing possible HTTP methods.
- */
+/// Enum type representing possible HTTP methods.
 public enum HTTPMethod: String {
     
     /// `GET` method.

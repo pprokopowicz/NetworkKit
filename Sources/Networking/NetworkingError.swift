@@ -5,22 +5,26 @@
 //  Created by Piotr Prokopowicz on 08/12/2020.
 //
 
-import Foundation
-
 public struct NetworkingError<Response: Decodable>: Error {
     
-    #warning ("TODO: Documentation, MARK")
+    /// Value representing http status code in a form of an enum case.
     public let status: NetworkingStatus
+    /// Error data returned decoded into an object.
     public let response: Response?
+    /// Value representing http status code in a form of an `Int`.
     public var code: Int { status.rawValue }
     
-    #warning ("TODO: Documentation")
+    /// Initializes error object with given parameters.
+    /// - Parameter code: Value representing http status code in a form of an `Int`.
+    /// - Parameter response: Error data returned decoded into an object.
     public init(code: Int, response: Response?) {
         status = NetworkingStatus(rawValue: code) ?? .unknown
         self.response = response
     }
     
-    #warning ("TODO: Documentation")
+    /// Initializes error object with given parameters.
+    /// - Parameter status: Value representing http status code in a form of an enum case.
+    /// - Parameter response: Error data returned decoded into an object.
     public init(status: NetworkingStatus, response: Response?) {
         self.status = status
         self.response = response
@@ -28,6 +32,7 @@ public struct NetworkingError<Response: Decodable>: Error {
     
 }
 
+/// Enum type representing http status codes
 public enum NetworkingStatus: Int {
     
     case unknown                        = -1

@@ -5,12 +5,7 @@
 //  Created by Piotr Prokopowicz on 08/12/2020.
 //
 
-#warning ("TODO: Check Documentation")
-// MARK: - Protocol declaration
-
-/**
- Protocol used for making service calls. It's responsible for storing information about a given service call.
- */
+/// Protocol used for storing information needed to perform a request.
 public protocol NetworkingService {
     
     /// Output of which the response is being decoded into.
