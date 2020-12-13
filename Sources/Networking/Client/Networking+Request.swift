@@ -11,7 +11,7 @@ import Combine
 extension Networking {
     #warning ("TODO: Documentation")
     public func request<Service: NetworkingService>(service: Service) -> AnyPublisher<Service.Output, Error> {
-        guard let urlRequest = URLRequest(service: service, encoder: encoder) else {
+        guard let urlRequest = URLRequest(service: service, encoder: encoder, timeout: timeout) else {
             return Fail(error: NetworkingError<NetworkingEmpty>(status: .unableToParseResponse, response: nil))
                 .eraseToAnyPublisher()
         }
