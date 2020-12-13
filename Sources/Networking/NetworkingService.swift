@@ -22,16 +22,18 @@ public protocol NetworkingService {
 
     /// Endpoint path For example: "/api/breeds/image/random".
     var path: String { get }
-    /// Optional query parameters that are added to the url. Default value is `nil`.
+    /// Optional query parameters that are added to the url.
     var queryParameters: [String: String]? { get }
-    /// Optional body input. Must confrom to `Encodable`. Default value is `nil`.
+    /// Optional body input. Must confrom to `Encodable`. 
     var input: Encodable? { get }
     
 }
 
 public extension NetworkingService {
     
+    /// nil
     var queryParameters: [String: String]? { nil }
+    /// nil
     var input: Encodable? { nil }
     
 }

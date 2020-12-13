@@ -16,6 +16,7 @@ public struct NetworkingError<Response: Decodable>: Error {
     public var code: Int { status.rawValue }
     
     /// Initializes error object with given parameters.
+    ///
     /// - Parameter code: Value representing http status code in a form of an `Int`.
     /// - Parameter response: Error data returned decoded into an object.
     public init(code: Int, response: Response?) {
@@ -24,6 +25,7 @@ public struct NetworkingError<Response: Decodable>: Error {
     }
     
     /// Initializes error object with given parameters.
+    /// 
     /// - Parameter status: Value representing http status code in a form of an enum case.
     /// - Parameter response: Error data returned decoded into an object.
     public init(status: NetworkingStatus, response: Response?) {
