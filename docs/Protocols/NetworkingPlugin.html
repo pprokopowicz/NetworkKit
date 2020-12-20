@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>NetworkingBase Protocol Reference</title>
+    <title>NetworkingPlugin Protocol Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -13,8 +13,8 @@
     <script src="../js/jazzy.search.js" defer></script>
   </head>
   <body>
-    <a name="//apple_ref/swift/Protocol/NetworkingBase" class="dashAnchor"></a>
-    <a title="NetworkingBase Protocol Reference"></a>
+    <a name="//apple_ref/swift/Protocol/NetworkingPlugin" class="dashAnchor"></a>
+    <a title="NetworkingPlugin Protocol Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html"> Docs</a> (27% documented)</p>
@@ -29,7 +29,7 @@
       <p id="breadcrumbs">
         <a href="../index.html"> Reference</a>
         <img id="carat" src="../img/carat.png" />
-        NetworkingBase Protocol Reference
+        NetworkingPlugin Protocol Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -82,15 +82,15 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>NetworkingBase</h1>
+            <h1>NetworkingPlugin</h1>
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">NetworkingBase</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">NetworkingPlugin</span></code></pre>
 
                 </div>
               </div>
-            <p>Protocol used to declare a base url for service.</p>
+            <p>Protocol that allows to add extra functionality to <code><a href="../Structs/Networking.html">Networking</a></code> client.</p>
 
           </section>
           <section class="section task-group-section">
@@ -99,9 +99,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:10Networking0A4BaseP3urlSSvp"></a>
-                    <a name="//apple_ref/swift/Property/url" class="dashAnchor"></a>
-                    <a class="token" href="#/s:10Networking0A4BaseP3urlSSvp">url</a>
+                    <a name="/s:10Networking0A6PluginP4body7service5eventyqd___AA0aB5EventOtAA0A7ServiceRd__lF"></a>
+                    <a name="//apple_ref/swift/Method/body(service:event:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10Networking0A6PluginP4body7service5eventyqd___AA0aB5EventOtAA0A7ServiceRd__lF">body(service:<wbr>event:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -109,14 +109,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Function called by <code><a href="../Structs/Networking.html">Networking</a></code> client on specific events with appropriate data.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">url</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="n">body</span><span class="o">&lt;</span><span class="kt">Service</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">service</span><span class="p">:</span> <span class="kt">Service</span><span class="p">,</span> <span class="nv">event</span><span class="p">:</span> <span class="kt"><a href="../Enums/NetworkingPluginEvent.html">NetworkingPluginEvent</a></span><span class="p">)</span> <span class="k">where</span> <span class="kt">Service</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/NetworkingService.html">NetworkingService</a></span></code></pre>
 
                         </div>
                       </div>

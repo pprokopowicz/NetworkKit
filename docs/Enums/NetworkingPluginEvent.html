@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>HTTPMethod Enumeration Reference</title>
+    <title>NetworkingPluginEvent Enumeration Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -13,8 +13,8 @@
     <script src="../js/jazzy.search.js" defer></script>
   </head>
   <body>
-    <a name="//apple_ref/swift/Enum/HTTPMethod" class="dashAnchor"></a>
-    <a title="HTTPMethod Enumeration Reference"></a>
+    <a name="//apple_ref/swift/Enum/NetworkingPluginEvent" class="dashAnchor"></a>
+    <a title="NetworkingPluginEvent Enumeration Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html"> Docs</a> (27% documented)</p>
@@ -29,7 +29,7 @@
       <p id="breadcrumbs">
         <a href="../index.html"> Reference</a>
         <img id="carat" src="../img/carat.png" />
-        HTTPMethod Enumeration Reference
+        NetworkingPluginEvent Enumeration Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -82,15 +82,15 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>HTTPMethod</h1>
+            <h1>NetworkingPluginEvent</h1>
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">HTTPMethod</span> <span class="p">:</span> <span class="kt">String</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">NetworkingPluginEvent</span></code></pre>
 
                 </div>
               </div>
-            <p>Enum type representing possible HTTP methods.</p>
+            <p>Events that happen during performing of requests.</p>
 
           </section>
           <section class="section task-group-section">
@@ -99,9 +99,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:10Networking10HTTPMethodO3getyA2CmF"></a>
-                    <a name="//apple_ref/swift/Element/get" class="dashAnchor"></a>
-                    <a class="token" href="#/s:10Networking10HTTPMethodO3getyA2CmF">get</a>
+                    <a name="/s:10Networking0A11PluginEventO20unableToParseRequestyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/unableToParseRequest" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10Networking0A11PluginEventO20unableToParseRequestyA2CmF">unableToParseRequest</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -109,14 +109,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p><code>GET</code> method.</p>
+                        <p><code><a href="../Structs/Networking.html">Networking</a></code> client wasn&rsquo;t able to parse <code><a href="../Protocols/NetworkingService.html">NetworkingService</a></code> instance into <code>URLRequest</code>.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="k">get</span> <span class="o">=</span> <span class="s">"GET"</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">unableToParseRequest</span></code></pre>
 
                         </div>
                       </div>
@@ -126,9 +126,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:10Networking10HTTPMethodO3putyA2CmF"></a>
-                    <a name="//apple_ref/swift/Element/put" class="dashAnchor"></a>
-                    <a class="token" href="#/s:10Networking10HTTPMethodO3putyA2CmF">put</a>
+                    <a name="/s:10Networking0A11PluginEventO13dataRequestedyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/dataRequested" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10Networking0A11PluginEventO13dataRequestedyA2CmF">dataRequested</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -136,14 +136,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p><code>PUT</code> method.</p>
+                        <p>Data was successfully requested.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">put</span> <span class="o">=</span> <span class="s">"PUT"</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">dataRequested</span></code></pre>
 
                         </div>
                       </div>
@@ -153,9 +153,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:10Networking10HTTPMethodO4postyA2CmF"></a>
-                    <a name="//apple_ref/swift/Element/post" class="dashAnchor"></a>
-                    <a class="token" href="#/s:10Networking10HTTPMethodO4postyA2CmF">post</a>
+                    <a name="/s:10Networking0A11PluginEventO13responseErroryAC10Foundation4DataV_AA0A6StatusOtcACmF"></a>
+                    <a name="//apple_ref/swift/Element/responseError(data:status:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10Networking0A11PluginEventO13responseErroryAC10Foundation4DataV_AA0A6StatusOtcACmF">responseError(data:<wbr>status:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -163,14 +163,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p><code>POST</code> method.</p>
+                        <p>An error occured during fetching of data.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">post</span> <span class="o">=</span> <span class="s">"POST"</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">responseError</span><span class="p">(</span><span class="nv">data</span><span class="p">:</span> <span class="kt">Data</span><span class="p">,</span> <span class="nv">status</span><span class="p">:</span> <span class="kt"><a href="../Enums/NetworkingStatus.html">NetworkingStatus</a></span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -180,9 +180,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:10Networking10HTTPMethodO6deleteyA2CmF"></a>
-                    <a name="//apple_ref/swift/Element/delete" class="dashAnchor"></a>
-                    <a class="token" href="#/s:10Networking10HTTPMethodO6deleteyA2CmF">delete</a>
+                    <a name="/s:10Networking0A11PluginEventO7successyAC10Foundation4DataV_AA0A6StatusOtcACmF"></a>
+                    <a name="//apple_ref/swift/Element/success(data:status:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10Networking0A11PluginEventO7successyAC10Foundation4DataV_AA0A6StatusOtcACmF">success(data:<wbr>status:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -190,41 +190,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p><code>DELETE</code> method.</p>
+                        <p>Request was successfully performed.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">delete</span> <span class="o">=</span> <span class="s">"DELETE"</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:10Networking10HTTPMethodO4pathyA2CmF"></a>
-                    <a name="//apple_ref/swift/Element/path" class="dashAnchor"></a>
-                    <a class="token" href="#/s:10Networking10HTTPMethodO4pathyA2CmF">path</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p><code>PATCH</code> method.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">path</span> <span class="o">=</span> <span class="s">"PATCH"</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">success</span><span class="p">(</span><span class="nv">data</span><span class="p">:</span> <span class="kt">Data</span><span class="p">,</span> <span class="nv">status</span><span class="p">:</span> <span class="kt"><a href="../Enums/NetworkingStatus.html">NetworkingStatus</a></span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
