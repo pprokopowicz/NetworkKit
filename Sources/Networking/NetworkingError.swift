@@ -164,7 +164,7 @@ public enum NetworkingStatus: Int {
     case cannotOpenFile                 = -3001
     case cannotCloseFile                = -3002
     case cannotWriteToFile              = -3003
-    case CcannotRemoveFile              = -3004
+    case cannotRemoveFile               = -3004
     case cannotMoveFile                 = -3005
     case downloadDecodingFailedMidStream = -3006
     case downloadDecodingFailedToComplete = -3007
