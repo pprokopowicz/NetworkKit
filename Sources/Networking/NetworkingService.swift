@@ -32,6 +32,8 @@ public protocol NetworkingService {
 public extension NetworkingService {
     
     /// nil
+    static var headers: [String: String]? { nil }
+    /// nil
     var queryParameters: [String: String]? { nil }
     /// nil
     var input: Encodable? { nil }
