@@ -35,5 +35,7 @@ public extension NetworkingService {
     var queryParameters: [String: String]? { nil }
     /// nil
     var input: Encodable? { nil }
+    /// String representation of url.
+    var url: String { "\(Self.base.url)\(path)" }
     
 }

@@ -17,15 +17,18 @@ public struct Networking {
     /// `JSONDecoder` used to decode service response.
     public let decoder: JSONDecoder
     
+    public let plugins: [NetworkingPlugin]
+    
     /// Initializes client with given parameters. Every parameter has default value.
     ///
     /// - Parameter timeout: Timeout of requests.
     /// - Parameter encoder: `JSONEncoder` used to encode body of request.
     /// - Parameter decoder: `JSONDecoder` used to decode service response.
-    public init(timeout: TimeInterval? = nil, encoder: JSONEncoder = JSONEncoder(), decoder: JSONDecoder = JSONDecoder()) {
+    public init(timeout: TimeInterval? = nil, encoder: JSONEncoder = JSONEncoder(), decoder: JSONDecoder = JSONDecoder(), plugins: [NetworkingPlugin] = []) {
         self.timeout = timeout
         self.encoder = encoder
         self.decoder = decoder
+        self.plugins = plugins
     }
     
 }
