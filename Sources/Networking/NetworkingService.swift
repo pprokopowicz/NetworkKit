@@ -15,7 +15,7 @@ public protocol NetworkingService {
     
     /// Method which is used.
     static var method: HTTPMethod { get }
-    /// Headers used for service calls. Default value is `nil`.
+    /// Headers used for service calls.
     static var headers: [String: String]? { get }
     /// Base url for given service.
     static var base: NetworkingBase { get }

@@ -752,7 +752,7 @@
     {
       "file": "/Users/piotrek/Code/Swift/Samples/Libraries/Networking/Sources/Networking/NetworkingError.swift",
       "line": 167,
-      "symbol": "NetworkingStatus.CcannotRemoveFile",
+      "symbol": "NetworkingStatus.cannotRemoveFile",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
