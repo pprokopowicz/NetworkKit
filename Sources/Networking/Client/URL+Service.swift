@@ -27,3 +27,10 @@ fileprivate extension Dictionary where Key == String, Value == String {
     }
     
 }
+
+public extension NetworkingService {
+    
+    /// String representation of url.
+    var url: String { URL(service: self)?.absoluteString ?? "" }
+    
+}
