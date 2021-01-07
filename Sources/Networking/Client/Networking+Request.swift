@@ -46,4 +46,67 @@ extension Networking {
             }.eraseToAnyPublisher()
     }
     
+    public func request<Service: NetworkingService>(service: Service, completion: @escaping (Result<Service.Output, Error>) -> Void) {
+        guard let urlRequest = URLRequest(service: service, encoder: encoder, timeout: timeout) else {
+            callPlugins(service: service, event: .unableToParseRequest)
+            
+            DispatchQueue.main.async {
+                completion(.failure(NetworkingError<NetworkingEmpty>(status: .unableToParseRequest, response: nil)))
+            }
+            return
+        }
+        
+        callPlugins(service: service, event: .dataRequested)
+        
+        URLSession.shared.dataTask(with: urlRequest) { data, response, error in
+            let data = data ?? Data()
+            
+            if let error = error {
+                DispatchQueue.main.async {
+                    completion(.failure(error))
+                }
+                
+                return
+            }
+            
+            guard let httpURLResponse = response as? HTTPURLResponse else {
+                let errorResponse = try? decoder.decode(Service.ErrorResponse.self, from: data)
+                callPlugins(service: service, event: .responseError(data: data, status: .unknown))
+                
+                DispatchQueue.main.async {
+                    completion(.failure(NetworkingError(status: .unknown, response: errorResponse)))
+                }
+                
+                return
+            }
+            
+            guard 200...299 ~= httpURLResponse.statusCode else {
+                let errorResponse = try? decoder.decode(Service.ErrorResponse.self, from: data)
+                let status = NetworkingStatus(rawValue: httpURLResponse.statusCode) ?? .unknown
+                callPlugins(service: service, event: .responseError(data: data, status: status))
+                
+                DispatchQueue.main.async {
+                    completion(.failure(NetworkingError(status: status, response: errorResponse)))
+                }
+                
+                return
+            }
+            
+            let status = NetworkingStatus(rawValue: httpURLResponse.statusCode) ?? .unknown
+            callPlugins(service: service, event: .success(data: data, status: status))
+            
+            do {
+                let model = try decoder.decode(Service.Output.self, from: data)
+                
+                DispatchQueue.main.async {
+                    completion(.success(model))
+                }
+            } catch(let error) {
+                DispatchQueue.main.async {
+                    completion(.failure(error))
+                }
+            }
+        }.resume()
+    }
+    
 }
