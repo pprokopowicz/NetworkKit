@@ -9,7 +9,7 @@ import Foundation
 
 extension URL {
     
-    init?<Service: NetworkingService>(service: Service) {
+    public init?<Service: NetworkingService>(service: Service) {
         var components = URLComponents(string: "\(Service.base.url)\(service.path)")
         components?.queryItems = service.queryParameters?.queryItems
         

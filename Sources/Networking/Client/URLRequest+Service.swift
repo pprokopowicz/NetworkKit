@@ -9,7 +9,7 @@ import Foundation
 
 extension URLRequest {
     
-    init?<Service: NetworkingService>(service: Service, encoder: JSONEncoder = JSONEncoder(), timeout: TimeInterval? = nil) {
+    public init?<Service: NetworkingService>(service: Service, encoder: JSONEncoder = JSONEncoder(), timeout: TimeInterval? = nil) {
         guard let url = URL(service: service) else { return nil }
         self.init(url: url)
         allHTTPHeaderFields = Service.headers
