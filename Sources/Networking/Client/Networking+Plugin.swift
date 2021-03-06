@@ -7,7 +7,7 @@
 
 extension Networking {
     
-    func callPlugins<Service: NetworkingService>(service: Service, event: NetworkingPluginEvent) {
+    public func callPlugins<Service: NetworkingService>(service: Service, event: NetworkingPluginEvent) {
         plugins.forEach { $0.body(service: service, event: event, encoder: encoder, decoder: decoder) }
     }
     
