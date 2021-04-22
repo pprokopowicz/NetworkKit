@@ -1,3 +1,3 @@
 # Networking
 
-A description of this package.
+Simple networking library used in private projects.
