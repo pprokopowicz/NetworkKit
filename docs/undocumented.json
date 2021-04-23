@@ -8,13 +8,6 @@
       "warning": "undocumented"
     },
     {
-      "file": "/Users/piotrek/Code/Swift/Libraries/Networking/Networking/Sources/Networking/Client/Networking+Request.swift",
-      "line": 49,
-      "symbol": "Networking.request(service:completion:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
       "file": "/Users/piotrek/Code/Swift/Libraries/Networking/Networking/Sources/Networking/Client/URL+Service.swift",
       "line": 12,
       "symbol": "URL.init(service:)",
