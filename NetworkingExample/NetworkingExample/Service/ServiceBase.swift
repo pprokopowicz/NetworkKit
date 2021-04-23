@@ -9,6 +9,6 @@ import Networking
 
 struct ServiceBase: NetworkingBase {
     
-    let url = "https://jsonplaceholder.typicode.com"
+    let url = "https://jsonplaceholder.cypress.io"
     
 }
