@@ -20,10 +20,10 @@ extension URL {
     
 }
 
-fileprivate extension Dictionary where Key == String, Value == String {
+fileprivate extension Dictionary where Key == String, Value == CustomStringConvertible {
     
     var queryItems: [URLQueryItem] {
-        map { URLQueryItem(name: $0.key, value: $0.value) }
+        map { URLQueryItem(name: $0.key, value: $0.value.description) }
     }
     
 }

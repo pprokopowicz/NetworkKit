@@ -16,14 +16,14 @@ public protocol NetworkingService {
     /// Method which is used.
     static var method: HTTPMethod { get }
     /// Headers used for service calls.
-    static var headers: [String: String]? { get }
+    static var headers: [String: CustomStringConvertible]? { get }
     /// Base url for given service.
     static var base: NetworkingBase { get }
 
     /// Endpoint path For example: "/api/breeds/image/random".
     var path: String { get }
     /// Optional query parameters that are added to the url.
-    var queryParameters: [String: String]? { get }
+    var queryParameters: [String: CustomStringConvertible]? { get }
     /// Optional body input. Must confrom to `Encodable`. 
     var input: Encodable? { get }
     
@@ -32,9 +32,9 @@ public protocol NetworkingService {
 public extension NetworkingService {
     
     /// nil
-    static var headers: [String: String]? { nil }
+    static var headers: [String: CustomStringConvertible]? { nil }
     /// nil
-    var queryParameters: [String: String]? { nil }
+    var queryParameters: [String: CustomStringConvertible]? { nil }
     /// nil
     var input: Encodable? { nil }
     
