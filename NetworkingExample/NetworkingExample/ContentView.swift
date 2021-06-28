@@ -12,15 +12,15 @@ struct ContentView: View {
     @ObservedObject var viewModel = ContentViewModel()
     
     var body: some View {
-        if let todos = viewModel.todos {
-            List(todos, id: \.id) { todo in
+        VStack {
+            List(viewModel.todos, id: \.id) { todo in
                 Text(todo.title)
             }
+            
+            Button("Fetch todos") {
+                viewModel.fetch()
+            }.padding()
         }
-        
-        Button("Fetch todos") {
-            viewModel.fetch()
-        }.padding()
     }
 }
 
