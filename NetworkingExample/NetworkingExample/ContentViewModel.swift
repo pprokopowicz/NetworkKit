@@ -11,17 +11,16 @@ import Combine
 
 final class ContentViewModel: ObservableObject {
     
-    @Published var todos: [TodoModel]?
+    @Published var todos: [TodoModel] = []
     private var cancellables: Set<AnyCancellable> = Set<AnyCancellable>()
     
     func fetch() {
         Networking.shared
             .request(service: TodoService())
             .receive(on: RunLoop.main)
-            .sink(receiveCompletion: { _ in
-            }, receiveValue: { todos in
-                self.todos = todos
-            }).store(in: &cancellables)
+            .replaceError(with: [])
+            .assign(to: \.todos, on: self)
+            .store(in: &cancellables)
     }
     
 }

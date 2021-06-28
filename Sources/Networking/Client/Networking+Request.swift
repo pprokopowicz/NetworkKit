@@ -50,19 +50,20 @@ extension Networking {
     ///
     /// - Parameter service: Service object that conforms to `NetworkingService` protocol. Has every information that client needs to perform a service call.
     /// - Parameter completion: Completion handler with `Result` with either given services output type or an error. In case of Networking error it will be of type `NetworkingError`.
-    public func request<Service: NetworkingService>(service: Service, completion: @escaping (Result<Service.Output, Error>) -> Void) {
+    @discardableResult
+    public func request<Service: NetworkingService>(service: Service, completion: @escaping (Result<Service.Output, Error>) -> Void) -> Cancellable? {
         guard let urlRequest = URLRequest(service: service, encoder: encoder, timeout: timeout) else {
             callPlugins(service: service, event: .unableToParseRequest)
             
             DispatchQueue.main.async {
                 completion(.failure(NetworkingError<NetworkingEmpty>(status: .unableToParseRequest, response: nil)))
             }
-            return
+            return nil
         }
         
         callPlugins(service: service, event: .dataRequested)
         
-        URLSession.shared.dataTask(with: urlRequest) { data, response, error in
+        let urlTask = URLSession.shared.dataTask(with: urlRequest) { data, response, error in
             let data = data ?? Data()
             
             if let error = error {
@@ -110,7 +111,11 @@ extension Networking {
                     completion(.failure(error))
                 }
             }
-        }.resume()
+        }
+        
+        let task = Task(task: urlTask)
+        urlTask.resume()
+        return task
     }
     
 }

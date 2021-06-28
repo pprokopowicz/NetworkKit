@@ -12,7 +12,7 @@ extension NetworkingService {
     
     typealias ErrorResponse = NetworkingEmpty
     
-    static var headers: [String : String]? { ["Content-Type": "application/json"] }
+    static var headers: [String : CustomStringConvertible]? { ["Content-Type": "application/json"] }
     static var base: NetworkingBase { ServiceBase() }
     
 }

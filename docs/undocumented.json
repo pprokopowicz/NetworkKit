@@ -1,6 +1,20 @@
 {
   "warnings": [
     {
+      "file": "/Users/piotrek/Code/Swift/Libraries/Networking/Networking/Sources/Networking/Cancellable.swift",
+      "line": 10,
+      "symbol": "Cancellable",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/piotrek/Code/Swift/Libraries/Networking/Networking/Sources/Networking/Cancellable.swift",
+      "line": 11,
+      "symbol": "Cancellable.cancel()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
       "file": "/Users/piotrek/Code/Swift/Libraries/Networking/Networking/Sources/Networking/Client/Networking+Plugin.swift",
       "line": 10,
       "symbol": "Networking.callPlugins(service:event:)",
