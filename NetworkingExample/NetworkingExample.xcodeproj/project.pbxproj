@@ -11,12 +11,15 @@
 		242D0D1F25800BA20084CE4E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242D0D1E25800BA20084CE4E /* ContentView.swift */; };
 		242D0D2125800BA20084CE4E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 242D0D2025800BA20084CE4E /* Assets.xcassets */; };
 		242D0D2425800BA20084CE4E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 242D0D2325800BA20084CE4E /* Preview Assets.xcassets */; };
-		242D0D5F25800C830084CE4E /* Networking in Frameworks */ = {isa = PBXBuildFile; productRef = 242D0D5E25800C830084CE4E /* Networking */; };
 		242D0D62258028490084CE4E /* TodoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242D0D61258028490084CE4E /* TodoModel.swift */; };
 		242D0D662580288D0084CE4E /* Networking+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242D0D652580288D0084CE4E /* Networking+Additions.swift */; };
 		242D0D6A258028E90084CE4E /* TodoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242D0D69258028E90084CE4E /* TodoService.swift */; };
 		242D0D6D258029220084CE4E /* NetworkingService+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242D0D6C258029220084CE4E /* NetworkingService+Additions.swift */; };
 		242D0D72258029C70084CE4E /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242D0D71258029C70084CE4E /* ContentViewModel.swift */; };
+		248EF20C26AAD81200BF087F /* Networking.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 248EF20B26AAD81100BF087F /* Networking.xcframework */; };
+		248EF20D26AAD81200BF087F /* Networking.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 248EF20B26AAD81100BF087F /* Networking.xcframework */; };
+		248EF20E26AAD81200BF087F /* Networking.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 248EF20B26AAD81100BF087F /* Networking.xcframework */; };
+		248EF20F26AAD81200BF087F /* Networking.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 248EF20B26AAD81100BF087F /* Networking.xcframework */; };
 		249B7D48268A1AEB004F4F88 /* NetworkingExampleMacOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249B7D47268A1AEB004F4F88 /* NetworkingExampleMacOSApp.swift */; };
 		249B7D4C268A1AEC004F4F88 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 249B7D4B268A1AEC004F4F88 /* Assets.xcassets */; };
 		249B7D4F268A1AEC004F4F88 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 249B7D4E268A1AEC004F4F88 /* Preview Assets.xcassets */; };
@@ -106,12 +109,12 @@
 		242D0D2025800BA20084CE4E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		242D0D2325800BA20084CE4E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		242D0D2525800BA20084CE4E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		242D0D5A25800C0B0084CE4E /* Networking */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Networking; path = ..; sourceTree = "<group>"; };
 		242D0D61258028490084CE4E /* TodoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoModel.swift; sourceTree = "<group>"; };
 		242D0D652580288D0084CE4E /* Networking+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Networking+Additions.swift"; sourceTree = "<group>"; };
 		242D0D69258028E90084CE4E /* TodoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoService.swift; sourceTree = "<group>"; };
 		242D0D6C258029220084CE4E /* NetworkingService+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NetworkingService+Additions.swift"; sourceTree = "<group>"; };
 		242D0D71258029C70084CE4E /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
+		248EF20B26AAD81100BF087F /* Networking.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Networking.xcframework; path = ../framework/Networking.xcframework; sourceTree = "<group>"; };
 		249B7D45268A1AEB004F4F88 /* NetworkingExampleMacOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NetworkingExampleMacOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		249B7D47268A1AEB004F4F88 /* NetworkingExampleMacOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingExampleMacOSApp.swift; sourceTree = "<group>"; };
 		249B7D4B268A1AEC004F4F88 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -141,7 +144,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				242D0D5F25800C830084CE4E /* Networking in Frameworks */,
+				248EF20C26AAD81200BF087F /* Networking.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -150,6 +153,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				249B7D5E268A1B34004F4F88 /* Networking in Frameworks */,
+				248EF20D26AAD81200BF087F /* Networking.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -158,6 +162,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				249B7DAD268A1D50004F4F88 /* Networking in Frameworks */,
+				248EF20E26AAD81200BF087F /* Networking.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -166,6 +171,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				249B7DE4268A1F7A004F4F88 /* Networking in Frameworks */,
+				248EF20F26AAD81200BF087F /* Networking.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -175,7 +181,7 @@
 		242D0D1025800BA20084CE4E = {
 			isa = PBXGroup;
 			children = (
-				242D0D5A25800C0B0084CE4E /* Networking */,
+				248EF20B26AAD81100BF087F /* Networking.xcframework */,
 				242D0D1B25800BA20084CE4E /* NetworkingExample */,
 				249B7D46268A1AEB004F4F88 /* NetworkingExampleMacOS */,
 				249B7D96268A1D05004F4F88 /* NetworkingExampleTvOS */,
@@ -333,7 +339,6 @@
 			);
 			name = NetworkingExampleIOS;
 			packageProductDependencies = (
-				242D0D5E25800C830084CE4E /* Networking */,
 			);
 			productName = NetworkingExample;
 			productReference = 242D0D1925800BA20084CE4E /* NetworkingExampleIOS.app */;
@@ -1056,10 +1061,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		242D0D5E25800C830084CE4E /* Networking */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = Networking;
-		};
 		249B7D5D268A1B34004F4F88 /* Networking */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Networking;
