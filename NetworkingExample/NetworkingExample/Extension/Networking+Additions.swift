@@ -8,10 +8,10 @@
 import Foundation
 import Networking
 
-extension Networking {
+extension NetworkingProvider {
     
-    static let shared: Networking = {
-        Networking()
+    static let shared: NetworkingProvider = {
+        NetworkingProvider()
     }()
     
 }

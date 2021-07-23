@@ -7,32 +7,6 @@ import Swift
 public protocol Cancellable {
   func cancel()
 }
-extension Networking {
-  public func callPlugins<Service>(service: Service, event: Networking.NetworkingPluginEvent) where Service : Networking.NetworkingService
-}
-extension Networking {
-  public func request<Service>(service: Service) -> Combine.AnyPublisher<Service.Output, Swift.Error> where Service : Networking.NetworkingService
-  @discardableResult
-  public func request<Service>(service: Service, completion: @escaping (Swift.Result<Service.Output, Swift.Error>) -> Swift.Void) -> Networking.Cancellable? where Service : Networking.NetworkingService
-}
-public struct Networking {
-  public let timeout: Foundation.TimeInterval?
-  public let encoder: Foundation.JSONEncoder
-  public let decoder: Foundation.JSONDecoder
-  public let plugins: [Networking.NetworkingPlugin]
-  public init(timeout: Foundation.TimeInterval? = nil, encoder: Foundation.JSONEncoder = JSONEncoder(), decoder: Foundation.JSONDecoder = JSONDecoder(), plugins: [Networking.NetworkingPlugin] = [])
-}
-extension URL {
-  public init?<Service>(service: Service) where Service : Networking.NetworkingService
-}
-extension NetworkingService {
-  public var url: Swift.String {
-    get
-  }
-}
-extension URLRequest {
-  public init?<Service>(service: Service, encoder: Foundation.JSONEncoder = JSONEncoder(), timeout: Foundation.TimeInterval? = nil) where Service : Networking.NetworkingService
-}
 public enum HTTPMethod : Swift.String {
   case get
   case put
@@ -207,6 +181,32 @@ public enum NetworkingPluginEvent {
   case dataRequested
   case responseError(data: Foundation.Data, status: Networking.NetworkingStatus)
   case success(data: Foundation.Data, status: Networking.NetworkingStatus)
+}
+extension NetworkingProvider {
+  public func callPlugins<Service>(service: Service, event: Networking.NetworkingPluginEvent) where Service : Networking.NetworkingService
+}
+extension NetworkingProvider {
+  public func request<Service>(service: Service) -> Combine.AnyPublisher<Service.Output, Swift.Error> where Service : Networking.NetworkingService
+  @discardableResult
+  public func request<Service>(service: Service, completion: @escaping (Swift.Result<Service.Output, Swift.Error>) -> Swift.Void) -> Networking.Cancellable? where Service : Networking.NetworkingService
+}
+public struct NetworkingProvider {
+  public let timeout: Foundation.TimeInterval?
+  public let encoder: Foundation.JSONEncoder
+  public let decoder: Foundation.JSONDecoder
+  public let plugins: [Networking.NetworkingPlugin]
+  public init(timeout: Foundation.TimeInterval? = nil, encoder: Foundation.JSONEncoder = JSONEncoder(), decoder: Foundation.JSONDecoder = JSONDecoder(), plugins: [Networking.NetworkingPlugin] = [])
+}
+extension URL {
+  public init?<Service>(service: Service) where Service : Networking.NetworkingService
+}
+extension NetworkingService {
+  public var url: Swift.String {
+    get
+  }
+}
+extension URLRequest {
+  public init?<Service>(service: Service, encoder: Foundation.JSONEncoder = JSONEncoder(), timeout: Foundation.TimeInterval? = nil) where Service : Networking.NetworkingService
 }
 extension Networking.HTTPMethod : Swift.Equatable {}
 extension Networking.HTTPMethod : Swift.Hashable {}
