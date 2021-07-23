@@ -1,0 +1,216 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.4.2 (swiftlang-1205.0.28.2 clang-1205.0.19.57)
+// swift-module-flags: -target x86_64-apple-tvos13.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name Networking
+import Combine
+import Foundation
+import Swift
+public protocol Cancellable {
+  func cancel()
+}
+extension Networking {
+  public func callPlugins<Service>(service: Service, event: Networking.NetworkingPluginEvent) where Service : Networking.NetworkingService
+}
+extension Networking {
+  public func request<Service>(service: Service) -> Combine.AnyPublisher<Service.Output, Swift.Error> where Service : Networking.NetworkingService
+  @discardableResult
+  public func request<Service>(service: Service, completion: @escaping (Swift.Result<Service.Output, Swift.Error>) -> Swift.Void) -> Networking.Cancellable? where Service : Networking.NetworkingService
+}
+public struct Networking {
+  public let timeout: Foundation.TimeInterval?
+  public let encoder: Foundation.JSONEncoder
+  public let decoder: Foundation.JSONDecoder
+  public let plugins: [Networking.NetworkingPlugin]
+  public init(timeout: Foundation.TimeInterval? = nil, encoder: Foundation.JSONEncoder = JSONEncoder(), decoder: Foundation.JSONDecoder = JSONDecoder(), plugins: [Networking.NetworkingPlugin] = [])
+}
+extension URL {
+  public init?<Service>(service: Service) where Service : Networking.NetworkingService
+}
+extension NetworkingService {
+  public var url: Swift.String {
+    get
+  }
+}
+extension URLRequest {
+  public init?<Service>(service: Service, encoder: Foundation.JSONEncoder = JSONEncoder(), timeout: Foundation.TimeInterval? = nil) where Service : Networking.NetworkingService
+}
+public enum HTTPMethod : Swift.String {
+  case get
+  case put
+  case post
+  case delete
+  case path
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public protocol NetworkingBase {
+  var url: Swift.String { get }
+}
+public struct NetworkingEmpty : Swift.Codable {
+  public func encode(to encoder: Swift.Encoder) throws
+  public init(from decoder: Swift.Decoder) throws
+}
+public struct NetworkingError<Response> : Swift.Error where Response : Swift.Decodable {
+  public let status: Networking.NetworkingStatus
+  public let response: Response?
+  public var code: Swift.Int {
+    get
+  }
+  public init(code: Swift.Int, response: Response?)
+  public init(status: Networking.NetworkingStatus, response: Response?)
+}
+public enum NetworkingStatus : Swift.Int {
+  case unknown
+  case networkUnreachable
+  case unableToParseResponse
+  case unableToParseRequest
+  case continueError
+  case switchingProtocols
+  case processing
+  case ok
+  case created
+  case accepted
+  case nonAuthoritativeInformation
+  case noContent
+  case resetContent
+  case partialContent
+  case multiStatus
+  case alreadyReported
+  case IMUsed
+  case multipleChoices
+  case movedPermanently
+  case found
+  case seeOther
+  case notModified
+  case useProxy
+  case switchProxy
+  case temporaryRedirect
+  case permenantRedirect
+  case badRequest
+  case unauthorized
+  case paymentRequired
+  case forbidden
+  case notFound
+  case methodNotAllowed
+  case notAcceptable
+  case proxyAuthenticationRequired
+  case requestTimeout
+  case conflict
+  case gone
+  case lengthRequired
+  case preconditionFailed
+  case payloadTooLarge
+  case uriTooLong
+  case unsupportedMediaType
+  case rangeNotSatisfiable
+  case expectationFailed
+  case teapot
+  case misdirectedRequest
+  case unprocessableEntity
+  case locked
+  case failedDependency
+  case upgradeRequired
+  case preconditionRequired
+  case tooManyRequests
+  case requestHeaderFieldsTooLarge
+  case unavailableForLegalReasons
+  case noResponse
+  case sslCertificateError
+  case sslCertificateRequired
+  case httpRequestSentToHTTPSPort
+  case clientClosedRequest
+  case internalServerError
+  case notImplemented
+  case badGateway
+  case serviceUnavailable
+  case gatewayTimeout
+  case httpVersionNotSupported
+  case variantAlsoNegotiates
+  case insufficientStorage
+  case loopDetected
+  case notExtended
+  case networkAuthenticationRequired
+  case cancelled
+  case badURL
+  case timedOut
+  case unsupportedURL
+  case cannotFindHost
+  case cannotConnectToHost
+  case networkConnectionLost
+  case dnsLookupFailed
+  case httpTooManyRedirects
+  case resourceUnavailable
+  case notConnectedToInternet
+  case redirectToNonExistentLocation
+  case badServerResponse
+  case userCancelledAuthentication
+  case userAuthenticationRequired
+  case zeroByteResource
+  case cannotDecodeRawData
+  case cannotDecodeContentData
+  case cannotParseResponse
+  case appTransportSecurityRequiresSecureConnection
+  case fileDoesNotExist
+  case fileIsDirectory
+  case noPermissionsToReadFile
+  case dataLengthExceedsMaximum
+  case secureConnectionFailed
+  case serverCertificateHasBadDate
+  case serverCertificateUntrusted
+  case serverCertificateHasUnknownRoot
+  case serverCertificateNotYetValid
+  case clientCertificateRejected
+  case CclientCertificateRequired
+  case cannotLoadFromNetwork
+  case cannotCreateFile
+  case cannotOpenFile
+  case cannotCloseFile
+  case cannotWriteToFile
+  case cannotRemoveFile
+  case cannotMoveFile
+  case downloadDecodingFailedMidStream
+  case downloadDecodingFailedToComplete
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public protocol NetworkingService {
+  associatedtype Output : Swift.Decodable
+  associatedtype ErrorResponse : Swift.Decodable
+  static var method: Networking.HTTPMethod { get }
+  static var headers: [Swift.String : Swift.CustomStringConvertible]? { get }
+  static var base: Networking.NetworkingBase { get }
+  var path: Swift.String { get }
+  var queryParameters: [Swift.String : Swift.CustomStringConvertible]? { get }
+  var input: Swift.Encodable? { get }
+}
+extension NetworkingService {
+  public static var headers: [Swift.String : Swift.CustomStringConvertible]? {
+    get
+  }
+  public var queryParameters: [Swift.String : Swift.CustomStringConvertible]? {
+    get
+  }
+  public var input: Swift.Encodable? {
+    get
+  }
+}
+public protocol NetworkingPlugin {
+  func body<Service>(service: Service, event: Networking.NetworkingPluginEvent, encoder: Foundation.JSONEncoder, decoder: Foundation.JSONDecoder) where Service : Networking.NetworkingService
+}
+public enum NetworkingPluginEvent {
+  case unableToParseRequest
+  case dataRequested
+  case responseError(data: Foundation.Data, status: Networking.NetworkingStatus)
+  case success(data: Foundation.Data, status: Networking.NetworkingStatus)
+}
+extension Networking.HTTPMethod : Swift.Equatable {}
+extension Networking.HTTPMethod : Swift.Hashable {}
+extension Networking.HTTPMethod : Swift.RawRepresentable {}
+extension Networking.NetworkingStatus : Swift.Equatable {}
+extension Networking.NetworkingStatus : Swift.Hashable {}
+extension Networking.NetworkingStatus : Swift.RawRepresentable {}
