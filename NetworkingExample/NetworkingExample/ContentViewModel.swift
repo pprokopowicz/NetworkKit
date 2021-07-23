@@ -15,7 +15,7 @@ final class ContentViewModel: ObservableObject {
     private var cancellables: Set<AnyCancellable> = Set<AnyCancellable>()
     
     func fetch() {
-        Networking.shared
+        NetworkingProvider.shared
             .request(service: TodoService())
             .receive(on: RunLoop.main)
             .replaceError(with: [])

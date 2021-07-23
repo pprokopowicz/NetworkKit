@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-extension Networking {
+extension NetworkingProvider {
     
     /// Request function is used to perform service request.
     /// 

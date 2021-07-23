@@ -8,7 +8,7 @@
 import Foundation
 
 /// Struct that is responsible for creating api calls. It's built on top of `URLSession`.
-public struct Networking {
+public struct NetworkingProvider {
     
     /// Timeout of requests.
     public let timeout: TimeInterval?
