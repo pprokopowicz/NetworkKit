@@ -14,22 +14,13 @@ let package = Package(
     products: [
         .library(
             name: "Networking",
-            type: .dynamic,
             targets: ["Networking"]
         ),
-        .library(
-            name: "NetworkingBinary",
-            targets: ["NetworkingBinary"]
-        )
     ],
     targets: [
         .target(
             name: "Networking",
             dependencies: []),
-        .binaryTarget(
-            name: "NetworkingBinary",
-            path: "framework/Networking.xcframework"
-        ),
         .testTarget(
             name: "NetworkingTests",
             dependencies: ["Networking"]),
