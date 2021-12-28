@@ -14,6 +14,7 @@ extension NetworkClient {
     ///
     /// - Parameter service: Service object that conforms to `NetworkService` protocol. Has every information that client needs to perform a service call.
     /// - Parameter completion: Completion handler with `Result` with either given services output type or an error. In case of Networking error it will be of type `NetworkError`.
+    /// - Returns: `Cancellable` object used to cancel request.
     @discardableResult
     public func request<Request: NetworkRequest>(request: Request, completion: @escaping (Result<Request.Output, Error>) -> Void) -> Cancellable? {
         guard let urlRequest = requestBuilder.request(from: request, encoder: encoder, timeout: timeout) else {
