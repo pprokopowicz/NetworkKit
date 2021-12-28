@@ -24,7 +24,12 @@ extension NetworkClient {
             return nil
         }
         
-        let urlTask = URLSession.shared.dataTask(with: urlRequest) { data, response, error in
+        let urlTask = URLSession.shared.dataTask(with: urlRequest) { [weak self] data, response, error in
+            guard let self = self else {
+                completion(.failure(NetworkError<NetworkEmpty>(status: .unknown, response: nil)))
+                return
+            }
+            
             let data = data ?? Data()
             
             if let error = error {
@@ -36,7 +41,7 @@ extension NetworkClient {
             }
             
             guard let httpURLResponse = response as? HTTPURLResponse else {
-                let errorResponse = try? decoder.decode(Request.ErrorResponse.self, from: data)
+                let errorResponse = try? self.decoder.decode(Request.ErrorResponse.self, from: data)
                 
                 DispatchQueue.main.async {
                     completion(.failure(NetworkError(status: .unknown, response: errorResponse)))
@@ -46,7 +51,7 @@ extension NetworkClient {
             }
             
             guard 200...299 ~= httpURLResponse.statusCode else {
-                let errorResponse = try? decoder.decode(Request.ErrorResponse.self, from: data)
+                let errorResponse = try? self.decoder.decode(Request.ErrorResponse.self, from: data)
                 let status = NetworkResponseStatus(rawValue: httpURLResponse.statusCode) ?? .unknown
                 
                 DispatchQueue.main.async {
@@ -57,7 +62,7 @@ extension NetworkClient {
             }
             
             do {
-                let model = try decoder.decode(Request.Output.self, from: data)
+                let model = try self.decoder.decode(Request.Output.self, from: data)
                 
                 DispatchQueue.main.async {
                     completion(.success(model))
