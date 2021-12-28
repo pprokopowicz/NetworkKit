@@ -18,7 +18,9 @@ struct ContentView: View {
             }
             
             Button("Fetch todos") {
-                viewModel.fetch()
+                Task {
+                    await viewModel.asyncFetch()
+                }
             }.padding()
         }
     }

@@ -8,6 +8,7 @@
 import Foundation
 import NetworkKit
 
+@MainActor
 final class ContentViewModel: ObservableObject {
     
     @Published var todos: [TodoModel] = []
@@ -21,6 +22,16 @@ final class ContentViewModel: ObservableObject {
             case .failure(let error):
                 print(error.localizedDescription)
             }
+        }
+    }
+    
+    func asyncFetch() async {
+        let result = await NetworkClient.shared.request(request: TodoService())
+        switch result {
+        case .success(let todos):
+            self.todos = todos
+        case .failure(let error):
+            print(error.localizedDescription)
         }
     }
     
