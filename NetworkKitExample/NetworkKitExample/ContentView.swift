@@ -8,9 +8,19 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @ObservedObject var viewModel = ContentViewModel()
+    
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        VStack {
+            List(viewModel.todos, id: \.id) { todo in
+                Text(todo.title)
+            }
+            
+            Button("Fetch todos") {
+                viewModel.fetch()
+            }.padding()
+        }
     }
 }
 

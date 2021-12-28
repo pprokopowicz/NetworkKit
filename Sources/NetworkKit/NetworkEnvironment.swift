@@ -8,6 +8,10 @@
 /// Used to declare a base url for service.
 public struct NetworkEnvironment {
     
-    let baseURL: String
+    public let baseURL: String
+
+    public init(baseURL: String) {
+        self.baseURL = baseURL
+    }
     
 }
