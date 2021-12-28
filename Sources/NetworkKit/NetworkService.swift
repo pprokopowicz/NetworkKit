@@ -14,11 +14,11 @@ public protocol NetworkService {
     associatedtype ErrorResponse: Decodable
     
     /// Method which is used.
-    static var method: HTTPMethod { get }
+    var method: HTTPMethod { get }
     /// Headers used for service calls.
-    static var headers: [String: CustomStringConvertible]? { get }
+    var headers: [String: CustomStringConvertible]? { get }
     /// Base url for given service.
-    static var environment: NetworkEnvironment { get }
+    var environment: NetworkEnvironment { get }
 
     /// Endpoint path For example: "/api/breeds/image/random".
     var path: String { get }
@@ -36,6 +36,6 @@ public extension NetworkService {
     /// nil
     var queryParameters: [String: CustomStringConvertible]? { nil }
     /// nil
-    var input: Encodable? { nil }
+    var body: Encodable? { nil }
     
 }
