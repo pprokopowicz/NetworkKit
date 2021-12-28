@@ -1,12 +1,12 @@
 //
-//  NetworkService.swift
+//  NetworkRequest.swift
 //  
 //
 //  Created by Piotr Prokopowicz on 08/12/2020.
 //
 
 /// Protocol used for storing information needed to perform a request.
-public protocol NetworkService {
+public protocol NetworkRequest {
     
     /// Output of which the response is being decoded into.
     associatedtype Output: Decodable
@@ -29,7 +29,7 @@ public protocol NetworkService {
     
 }
 
-public extension NetworkService {
+public extension NetworkRequest {
     
     /// nil
     static var headers: [String: CustomStringConvertible]? { nil }

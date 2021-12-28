@@ -11,7 +11,7 @@ public protocol Cancellable {
     func cancel()
 }
 
-internal final class Task: Cancellable {
+internal final class CancellableTask: Cancellable {
     
     private let task: URLSessionTask
     

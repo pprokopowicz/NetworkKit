@@ -15,9 +15,8 @@ extension NetworkClient {
     /// - Parameter service: Service object that conforms to `NetworkService` protocol. Has every information that client needs to perform a service call.
     /// - Parameter completion: Completion handler with `Result` with either given services output type or an error. In case of Networking error it will be of type `NetworkError`.
     @discardableResult
-    public func request<Service: NetworkService>(service: Service, completion: @escaping (Result<Service.Output, Error>) -> Void) -> Cancellable? {
-        guard let urlRequest = URLRequest(service: service, encoder: encoder, timeout: timeout) else {
-            
+    public func request<Request: NetworkRequest>(request: Request, completion: @escaping (Result<Request.Output, Error>) -> Void) -> Cancellable? {
+        guard let urlRequest = requestBuilder.request(from: request, encoder: encoder, timeout: timeout) else {
             DispatchQueue.main.async {
                 completion(.failure(NetworkError<NetworkEmpty>(status: .unableToParseRequest, response: nil)))
             }
@@ -36,7 +35,7 @@ extension NetworkClient {
             }
             
             guard let httpURLResponse = response as? HTTPURLResponse else {
-                let errorResponse = try? decoder.decode(Service.ErrorResponse.self, from: data)
+                let errorResponse = try? decoder.decode(Request.ErrorResponse.self, from: data)
                 
                 DispatchQueue.main.async {
                     completion(.failure(NetworkError(status: .unknown, response: errorResponse)))
@@ -46,7 +45,7 @@ extension NetworkClient {
             }
             
             guard 200...299 ~= httpURLResponse.statusCode else {
-                let errorResponse = try? decoder.decode(Service.ErrorResponse.self, from: data)
+                let errorResponse = try? decoder.decode(Request.ErrorResponse.self, from: data)
                 let status = NetworkResponseStatus(rawValue: httpURLResponse.statusCode) ?? .unknown
                 
                 DispatchQueue.main.async {
@@ -57,7 +56,7 @@ extension NetworkClient {
             }
             
             do {
-                let model = try decoder.decode(Service.Output.self, from: data)
+                let model = try decoder.decode(Request.Output.self, from: data)
                 
                 DispatchQueue.main.async {
                     completion(.success(model))
@@ -69,7 +68,7 @@ extension NetworkClient {
             }
         }
         
-        let task = Task(task: urlTask)
+        let task = CancellableTask(task: urlTask)
         urlTask.resume()
         return task
     }
