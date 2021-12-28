@@ -9,8 +9,8 @@ import Foundation
 
 extension URL {
     
-    public init?<Service: NetworkingService>(service: Service) {
-        var components = URLComponents(string: "\(Service.base.url)\(service.path)")
+    public init?<Service: NetworkService>(service: Service) {
+        var components = URLComponents(string: "\(Service.environment.baseURL)\(service.path)")
         components?.queryItems = service.queryParameters?.queryItems
         
         guard let url = components?.url else { return nil }
@@ -28,7 +28,7 @@ fileprivate extension Dictionary where Key == String, Value == CustomStringConve
     
 }
 
-public extension NetworkingService {
+public extension NetworkService {
     
     /// String representation of url.
     var url: String { URL(service: self)?.absoluteString ?? "" }

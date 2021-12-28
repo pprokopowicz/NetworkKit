@@ -1,13 +1,13 @@
 //
-//  NetworkingBase.swift
+//  NetworkEnvironment.swift
 //  
 //
 //  Created by Piotr Prokopowicz on 11/12/2020.
 //
 
 /// Protocol used to declare a base url for service.
-public protocol NetworkingBase {
+public struct NetworkEnvironment {
     
-    var url: String { get }
+    let baseURL: String
     
 }

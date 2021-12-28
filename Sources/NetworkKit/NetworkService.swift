@@ -1,12 +1,12 @@
 //
-//  NetworkingService.swift
+//  NetworkService.swift
 //  
 //
 //  Created by Piotr Prokopowicz on 08/12/2020.
 //
 
 /// Protocol used for storing information needed to perform a request.
-public protocol NetworkingService {
+public protocol NetworkService {
     
     /// Output of which the response is being decoded into.
     associatedtype Output: Decodable
@@ -18,18 +18,18 @@ public protocol NetworkingService {
     /// Headers used for service calls.
     static var headers: [String: CustomStringConvertible]? { get }
     /// Base url for given service.
-    static var base: NetworkingBase { get }
+    static var environment: NetworkEnvironment { get }
 
     /// Endpoint path For example: "/api/breeds/image/random".
     var path: String { get }
     /// Optional query parameters that are added to the url.
     var queryParameters: [String: CustomStringConvertible]? { get }
     /// Optional body input. Must confrom to `Encodable`. 
-    var input: Encodable? { get }
+    var body: Encodable? { get }
     
 }
 
-public extension NetworkingService {
+public extension NetworkService {
     
     /// nil
     static var headers: [String: CustomStringConvertible]? { nil }

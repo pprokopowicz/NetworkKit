@@ -1,15 +1,15 @@
 //
-//  NetworkingError.swift
+//  NetworkError.swift
 //  
 //
 //  Created by Piotr Prokopowicz on 08/12/2020.
 //
 
 /// Struct containing information about an error returned from a network request.
-public struct NetworkingError<Response: Decodable>: Error {
+public struct NetworkError<Response: Decodable>: Error {
     
     /// Value representing http status code in a form of an enum case.
-    public let status: NetworkingStatus
+    public let status: NetworkResponseStatus
     /// Error data returned decoded into an object.
     public let response: Response?
     /// Value representing http status code in a form of an `Int`.
@@ -20,7 +20,7 @@ public struct NetworkingError<Response: Decodable>: Error {
     /// - Parameter code: Value representing http status code in a form of an `Int`.
     /// - Parameter response: Error data returned decoded into an object.
     public init(code: Int, response: Response?) {
-        status = NetworkingStatus(rawValue: code) ?? .unknown
+        status = NetworkResponseStatus(rawValue: code) ?? .unknown
         self.response = response
     }
     
@@ -28,7 +28,7 @@ public struct NetworkingError<Response: Decodable>: Error {
     /// 
     /// - Parameter status: Value representing http status code in a form of an enum case.
     /// - Parameter response: Error data returned decoded into an object.
-    public init(status: NetworkingStatus, response: Response?) {
+    public init(status: NetworkResponseStatus, response: Response?) {
         self.status = status
         self.response = response
     }
@@ -36,7 +36,7 @@ public struct NetworkingError<Response: Decodable>: Error {
 }
 
 /// Enum type representing http status codes
-public enum NetworkingStatus: Int {
+public enum NetworkResponseStatus: Int {
     
     case unknown                        = -1
     case networkUnreachable             = 0
