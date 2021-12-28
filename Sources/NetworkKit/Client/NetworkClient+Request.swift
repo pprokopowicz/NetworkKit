@@ -17,15 +17,12 @@ extension NetworkClient {
     @discardableResult
     public func request<Service: NetworkService>(service: Service, completion: @escaping (Result<Service.Output, Error>) -> Void) -> Cancellable? {
         guard let urlRequest = URLRequest(service: service, encoder: encoder, timeout: timeout) else {
-            callPlugins(service: service, event: .unableToParseRequest)
             
             DispatchQueue.main.async {
                 completion(.failure(NetworkError<NetworkEmpty>(status: .unableToParseRequest, response: nil)))
             }
             return nil
         }
-        
-        callPlugins(service: service, event: .dataRequested)
         
         let urlTask = URLSession.shared.dataTask(with: urlRequest) { data, response, error in
             let data = data ?? Data()
@@ -40,7 +37,6 @@ extension NetworkClient {
             
             guard let httpURLResponse = response as? HTTPURLResponse else {
                 let errorResponse = try? decoder.decode(Service.ErrorResponse.self, from: data)
-                callPlugins(service: service, event: .responseError(data: data, status: .unknown))
                 
                 DispatchQueue.main.async {
                     completion(.failure(NetworkError(status: .unknown, response: errorResponse)))
@@ -52,7 +48,6 @@ extension NetworkClient {
             guard 200...299 ~= httpURLResponse.statusCode else {
                 let errorResponse = try? decoder.decode(Service.ErrorResponse.self, from: data)
                 let status = NetworkResponseStatus(rawValue: httpURLResponse.statusCode) ?? .unknown
-                callPlugins(service: service, event: .responseError(data: data, status: status))
                 
                 DispatchQueue.main.async {
                     completion(.failure(NetworkError(status: status, response: errorResponse)))
@@ -60,9 +55,6 @@ extension NetworkClient {
                 
                 return
             }
-            
-            let status = NetworkResponseStatus(rawValue: httpURLResponse.statusCode) ?? .unknown
-            callPlugins(service: service, event: .success(data: data, status: status))
             
             do {
                 let model = try decoder.decode(Service.Output.self, from: data)
