@@ -1,10 +1,10 @@
-// swift-tools-version:5.3
+// swift-tools-version:5.5
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
 
 let package = Package(
-    name: "Networking",
+    name: "NetworkKit",
     platforms: [
         .iOS(.v13),
         .macOS(.v10_15),
@@ -13,25 +13,16 @@ let package = Package(
     ],
     products: [
         .library(
-            name: "Networking",
-            type: .dynamic,
-            targets: ["Networking"]
+            name: "NetworkKit",
+            targets: ["NetworkKit"]
         ),
-        .library(
-            name: "NetworkingBinary",
-            targets: ["NetworkingBinary"]
-        )
     ],
     targets: [
         .target(
-            name: "Networking",
+            name: "NetworkKit",
             dependencies: []),
-        .binaryTarget(
-            name: "NetworkingBinary",
-            path: "framework/Networking.xcframework"
-        ),
         .testTarget(
-            name: "NetworkingTests",
-            dependencies: ["Networking"]),
+            name: "NetworkKitTests",
+            dependencies: ["NetworkKit"]),
     ]
 )
