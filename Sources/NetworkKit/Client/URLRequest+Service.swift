@@ -13,13 +13,13 @@ extension URLRequest {
         guard let url = URL(service: service) else { return nil }
         self.init(url: url)
         allHTTPHeaderFields = Service.headers?.mapValues { $0.description }
-        httpMethod = Service.method.rawValue
+        httpMethod = service.method.rawValue
         
         if let timeout = timeout {
             timeoutInterval = timeout
         }
         
-        if Service.method != .get {
+        if service.method != .get {
             httpBody = service.body?.data(encoder: encoder)
         }
     }

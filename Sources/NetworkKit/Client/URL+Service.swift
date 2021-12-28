@@ -10,7 +10,7 @@ import Foundation
 extension URL {
     
     public init?<Service: NetworkService>(service: Service) {
-        var components = URLComponents(string: "\(Service.environment.baseURL)\(service.path)")
+        var components = URLComponents(string: "\(service.environment.baseURL)\(service.path)")
         components?.queryItems = service.queryParameters?.queryItems
         
         guard let url = components?.url else { return nil }
