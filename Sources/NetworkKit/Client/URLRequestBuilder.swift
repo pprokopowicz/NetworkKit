@@ -9,23 +9,23 @@ import Foundation
 
 // MARK: - Protocol
 
-public protocol URLRequestBuilderScheme {
+internal protocol URLRequestBuilderScheme {
     func request<Request: NetworkRequest>(from request: Request) -> URLRequest?
 }
 
-public protocol URLBuilderScheme {
+internal protocol URLBuilderScheme {
     func url<Request: NetworkRequest>(from request: Request) -> URL?
 }
 
 // MARK: - Implementation
 
-public struct URLRequestBuilder: URLRequestBuilderScheme {
+internal struct URLRequestBuilder: URLRequestBuilderScheme {
     
     private let urlBuilder: URLBuilderScheme
     private let encoder: JSONEncoder
     private let timeout: TimeInterval?
 
-    public init(
+    internal init(
         urlBuilder: URLBuilderScheme = URLBuilder(),
         encoder: JSONEncoder = JSONEncoder(),
         timeout: TimeInterval? = nil
@@ -35,7 +35,7 @@ public struct URLRequestBuilder: URLRequestBuilderScheme {
         self.timeout = timeout
     }
     
-    public func request<Request: NetworkRequest>(from request: Request) -> URLRequest? {
+    internal func request<Request: NetworkRequest>(from request: Request) -> URLRequest? {
         guard let url = urlBuilder.url(from: request) else { return nil }
         
         var urlRequest = URLRequest(url: url)
@@ -51,7 +51,7 @@ public struct URLRequestBuilder: URLRequestBuilderScheme {
     
 }
 
-public struct URLBuilder: URLBuilderScheme {
+internal struct URLBuilder: URLBuilderScheme {
     
     public init() {}
     
