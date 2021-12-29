@@ -8,6 +8,6 @@
 import Foundation
 import NetworkKit
 
-extension NetworkEnvironment {
-    static let `default`: NetworkEnvironment = NetworkEnvironment(baseURL: "https://jsonplaceholder.cypress.io")
+extension NetworkEnvironment where Self == NetworkSimpleEnvironment {
+    static var `default`: NetworkEnvironment { NetworkSimpleEnvironment(baseURL: "https://jsonplaceholder.cypress.io") }
 }
