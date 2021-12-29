@@ -34,9 +34,8 @@ extension NetworkClient {
             }
         }
         
-        let task = CancellableTask(task: urlTask)
         urlTask.resume()
-        return task
+        return urlTask
     }
     
 }
