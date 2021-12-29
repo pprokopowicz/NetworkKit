@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// Struct that is responsible for creating api calls. It's built on top of `URLSession`.
+/// Class that is responsible for creating api calls. It's built on top of `URLSession`.
 public final class NetworkClient {
     
     /// Object used to build `URLRequest` from `NetworkRequest`.
