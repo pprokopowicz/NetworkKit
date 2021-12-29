@@ -40,6 +40,7 @@ public enum NetworkResponseStatus: Int {
     
     case unknown                        = -1
     case unableToParseRequest           = -2
+    case unableToParseResponse          = -3
     
     // 1xx Informational
     case continueError                  = 100
