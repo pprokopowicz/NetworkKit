@@ -10,7 +10,13 @@ import Foundation
 // MARK: - Protocol
 
 public protocol ResponseBuilderScheme {
-    func response<Request: NetworkRequest>(from request: Request, data: Data?, response: URLResponse?, error: Error?) -> Result<Request.Output, Error>
+    func response<Output: Decodable, ErrorOutput: Decodable>(
+        _ outputType: Output.Type,
+        errorType: ErrorOutput.Type,
+        data: Data?,
+        response: URLResponse?,
+        error: Error?
+    ) -> Result<Output, Error>
 }
 
 // MARK: - Implementation
@@ -23,33 +29,34 @@ public struct ResponseBuilder: ResponseBuilderScheme {
         self.decoder = decoder
     }
     
-    public func response<Request: NetworkRequest>(
-        from request: Request,
+    public func response<Output: Decodable, ErrorOutput: Decodable>(
+        _ outputType: Output.Type,
+        errorType: ErrorOutput.Type,
         data: Data?,
         response: URLResponse?,
         error: Error?
-    ) -> Result<Request.Output, Error> {
+    ) -> Result<Output, Error> {
         if let error = error {
             return .failure(error)
         }
         
         guard let httpURLResponse = response as? HTTPURLResponse else {
-            let errorResponse = data.map { try? self.decoder.decode(Request.ErrorResponse.self, from: $0) }
+            let errorResponse = data.map { try? self.decoder.decode(errorType, from: $0) }
             return .failure(NetworkError(status: .unknown, response: errorResponse))
         }
         
         guard 200...299 ~= httpURLResponse.statusCode else {
-            let errorResponse = data.map { try? self.decoder.decode(Request.ErrorResponse.self, from: $0) }
+            let errorResponse = data.map { try? self.decoder.decode(outputType, from: $0) }
             let status = NetworkResponseStatus(rawValue: httpURLResponse.statusCode) ?? .unknown
             return .failure(NetworkError(status: status, response: errorResponse))
         }
         
         guard let data = data else {
-            return .failure(NetworkError<Request.ErrorResponse>(status: .unableToParseResponse, response: nil))
+            return .failure(NetworkError<ErrorOutput>(status: .unableToParseResponse, response: nil))
         }
         
         do {
-            let model = try self.decoder.decode(Request.Output.self, from: data)
+            let model = try self.decoder.decode(outputType, from: data)
             return .success(model)
         } catch(let error) {
             return .failure(error)

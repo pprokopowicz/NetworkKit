@@ -96,6 +96,7 @@
 			children = (
 				24AA68D9277BA2F10043FE04 /* Extension */,
 				24AA68DA277BA2FE0043FE04 /* TodoModel.swift */,
+				24AA68DC277BA3170043FE04 /* TodosRequest.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -105,7 +106,6 @@
 			children = (
 				24AA68D5277BA2810043FE04 /* NetworkClient+Additions.swift */,
 				24AA68D7277BA2AE0043FE04 /* NetworkRequest+Additions.swift */,
-				24AA68DC277BA3170043FE04 /* TodosRequest.swift */,
 				24AA68DE277BA3680043FE04 /* NetworkEnvironment+Additions.swift */,
 			);
 			path = Extension;
