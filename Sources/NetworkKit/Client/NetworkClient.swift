@@ -10,31 +10,21 @@ import Foundation
 /// Struct that is responsible for creating api calls. It's built on top of `URLSession`.
 public final class NetworkClient {
     
-    /// Timeout of requests.
-    public let timeout: TimeInterval?
-    /// `JSONEncoder` used to encode body of request.
-    public let encoder: JSONEncoder
-    /// `JSONDecoder` used to decode service response.
-    public let decoder: JSONDecoder
     /// Object used to build `URLRequest` from `NetworkRequest`.
     public let requestBuilder: URLRequestBuilderScheme
+    /// Object used to build response from returned data.
+    public let responseBuilder: ResponseBuilderScheme
     
     /// Initializes client with given parameters. Every parameter has default value.
     ///
-    /// - Parameter timeout: Timeout of requests.
-    /// - Parameter encoder: `JSONEncoder` used to encode body of request.
-    /// - Parameter decoder: `JSONDecoder` used to decode service response.
-    /// - Parameter requestBuilder: Object used to map `NetworkRequest` to `URLRequest`.
+    /// - Parameter requestBuilder: Object used to build `URLRequest` from `NetworkRequest`.
+    /// - Parameter responseBuilder: Object used to build response from returned data.
     public init(
-        timeout: TimeInterval? = nil,
-        encoder: JSONEncoder = JSONEncoder(),
-        decoder: JSONDecoder = JSONDecoder(),
-        requestBuilder: URLRequestBuilderScheme = URLRequestBuilder()
+        requestBuilder: URLRequestBuilderScheme = URLRequestBuilder(),
+        responseBuilder: ResponseBuilderScheme = ResponseBuilder()
     ) {
-        self.timeout = timeout
-        self.encoder = encoder
-        self.decoder = decoder
         self.requestBuilder = requestBuilder
+        self.responseBuilder = responseBuilder
     }
     
 }

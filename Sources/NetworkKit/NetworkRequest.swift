@@ -32,7 +32,7 @@ public protocol NetworkRequest {
 public extension NetworkRequest {
     
     /// nil
-    static var headers: [String: CustomStringConvertible]? { nil }
+    var headers: [String: CustomStringConvertible]? { nil }
     /// nil
     var queryParameters: [String: CustomStringConvertible]? { nil }
     /// nil

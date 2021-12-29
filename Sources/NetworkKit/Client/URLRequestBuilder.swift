@@ -10,7 +10,7 @@ import Foundation
 // MARK: - Protocol
 
 public protocol URLRequestBuilderScheme {
-    func request<Request: NetworkRequest>(from request: Request, encoder: JSONEncoder, timeout: TimeInterval?) -> URLRequest?
+    func request<Request: NetworkRequest>(from request: Request) -> URLRequest?
 }
 
 public protocol URLBuilderScheme {
@@ -22,12 +22,20 @@ public protocol URLBuilderScheme {
 public struct URLRequestBuilder: URLRequestBuilderScheme {
     
     private let urlBuilder: URLBuilderScheme
+    private let encoder: JSONEncoder
+    private let timeout: TimeInterval?
 
-    public init(urlBuilder: URLBuilderScheme = URLBuilder()) {
+    public init(
+        urlBuilder: URLBuilderScheme = URLBuilder(),
+        encoder: JSONEncoder = JSONEncoder(),
+        timeout: TimeInterval? = nil
+    ) {
         self.urlBuilder = urlBuilder
+        self.encoder = encoder
+        self.timeout = timeout
     }
     
-    public func request<Request: NetworkRequest>(from request: Request, encoder: JSONEncoder, timeout: TimeInterval? = nil) -> URLRequest? {
+    public func request<Request: NetworkRequest>(from request: Request) -> URLRequest? {
         guard let url = urlBuilder.url(from: request) else { return nil }
         
         var urlRequest = URLRequest(url: url)
