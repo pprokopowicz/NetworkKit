@@ -14,7 +14,7 @@ extension NetworkClient {
     ///
     /// - Parameter service: Service object that conforms to `NetworkService` protocol. Has every information that client needs to perform a service call.
     /// - Returns: `AnyPublisher` with either given services output type or an error. In case of Networking error it will be of type `NetworkError`.
-    func request<Request: NetworkRequest>(request r: Request) -> AnyPublisher<Request.Output, Error> {
+    public func request<Request: NetworkRequest>(request r: Request) -> AnyPublisher<Request.Output, Error> {
         let subject = PassthroughSubject<Request.Output, Error>()
         request(request: r) { result in
             switch result {
