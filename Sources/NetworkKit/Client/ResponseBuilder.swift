@@ -9,7 +9,7 @@ import Foundation
 
 // MARK: - Protocol
 
-internal protocol ResponseBuilderScheme {
+public protocol ResponseBuilderScheme {
     func response<Output: Decodable, ErrorOutput: Decodable>(
         _ outputType: Output.Type,
         errorType: ErrorOutput.Type,
@@ -21,7 +21,7 @@ internal protocol ResponseBuilderScheme {
 
 // MARK: - Implementation
 
-internal struct ResponseBuilder: ResponseBuilderScheme {
+public struct ResponseBuilder: ResponseBuilderScheme {
     
     private let decoder: JSONDecoder
     
