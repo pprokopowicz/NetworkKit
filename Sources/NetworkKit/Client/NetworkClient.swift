@@ -12,42 +12,19 @@ public final class NetworkClient {
     
     private let requestBuilder: URLRequestBuilderScheme
     private let responseBuilder: ResponseBuilderScheme
-    private let middlewares: [NetworkMiddleware]
     
     /// Initializes client with given parameters. Every parameter has default value.
     ///
     /// - Parameter requestBuilder: Object used to build `URLRequest` from `NetworkRequest`.
     /// - Parameter responseBuilder: Object used to build response from returned data.
-    public init(middlewares: [NetworkMiddleware] = []) {
+    public init() {
         self.requestBuilder = URLRequestBuilder()
         self.responseBuilder = ResponseBuilder()
-        self.middlewares = middlewares
     }
     
 }
 
 extension NetworkClient {
-    
-    private func defaultRequest<Output: Decodable, ErrorOutput: Decodable>(_ errorType: ErrorOutput.Type, urlRequest: URLRequest, completion: @escaping (Result<Output, Error>, Data?, URLResponse?) -> Void) -> Cancellable? {
-        let urlTask = URLSession.shared.dataTask(with: urlRequest) { [weak self] data, response, error in
-            guard let self = self else {
-                completion(
-                    .failure(NetworkError<NetworkEmpty>(status: .unknown, response: nil)),
-                    nil,
-                    nil
-                )
-                return
-            }
-            completion(
-                self.responseBuilder.response(Output.self, errorType: errorType, data: data, response: response, error: error),
-                data,
-                response
-            )
-        }
-        
-        urlTask.resume()
-        return urlTask
-    }
     
     /// Request function is used to perform service request.
     ///
@@ -61,19 +38,16 @@ extension NetworkClient {
             return nil
         }
         
-        let requestFunction: RequestFunction<Request.Output> = middlewares
-            .reversed()
-            .reduce(
-                { self.defaultRequest(Request.ErrorResponse.self, urlRequest: $0, completion: $1) },
-                { requestFunction, middleware in
-                    return middleware.body()(requestFunction)
-                }
-            )
-        let mappedCompletion: (Result<Request.Output, Error>, Data?, URLResponse?) -> Void = { result, _, _ in
-            completion(result)
+        let urlTask = URLSession.shared.dataTask(with: urlRequest) { [weak self] data, response, error in
+            guard let self = self else {
+                completion(.failure(NetworkError<NetworkEmpty>(status: .unknown, response: nil)))
+                return
+            }
+            completion(self.responseBuilder.response(Request.Output.self, errorType: Request.ErrorResponse.self, data: data, response: response, error: error))
         }
         
-        return requestFunction(urlRequest, mappedCompletion)
+        urlTask.resume()
+        return urlTask
     }
     
 }
