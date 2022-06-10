@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Protocol used to provide a "backend" abstraction to `NetworkClient`
 public protocol Session {
     func task(with urlRequest: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> DataTask
 }

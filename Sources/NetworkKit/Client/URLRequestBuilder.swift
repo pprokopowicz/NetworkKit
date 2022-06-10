@@ -9,6 +9,7 @@ import Foundation
 
 // MARK: - Protocol
 
+/// Protocol used to separate creation of `URLRequest` object from `NetworkClient`.
 public protocol URLRequestBuilderScheme {
     func request<Request: NetworkRequest>(from request: Request) -> URLRequest?
 }

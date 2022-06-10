@@ -7,8 +7,11 @@
 
 import Foundation
 
+/// Protocol used as a return type of request function in `NetworkClient`.
 public protocol DataTask {
+    /// Starts a new request call.
     func resume()
+    /// Cancels request call.
     func cancel()
 }
 

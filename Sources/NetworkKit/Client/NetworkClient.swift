@@ -18,6 +18,7 @@ public final class NetworkClient {
     ///
     /// - Parameter requestBuilder: Object used to build `URLRequest` from `NetworkRequest`.
     /// - Parameter responseBuilder: Object used to build response from returned data.
+    /// - Parameter session: Object used as "backend" for making API calls. By default `URLSession` is used, but you can provide your own implementation.
     public init(
         requestBuilder: URLRequestBuilderScheme = URLRequestBuilder(),
         responseBuilder: ResponseBuilderScheme = ResponseBuilder(),
