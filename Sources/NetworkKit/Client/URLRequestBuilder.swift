@@ -9,53 +9,36 @@ import Foundation
 
 // MARK: - Protocol
 
-internal protocol URLRequestBuilderScheme {
+/// Protocol used to separate creation of `URLRequest` object from `NetworkClient`.
+public protocol URLRequestBuilderScheme {
     func request<Request: NetworkRequest>(from request: Request) -> URLRequest?
-}
-
-internal protocol URLBuilderScheme {
-    func url<Request: NetworkRequest>(from request: Request) -> URL?
 }
 
 // MARK: - Implementation
 
-internal struct URLRequestBuilder: URLRequestBuilderScheme {
+public struct URLRequestBuilder: URLRequestBuilderScheme {
     
-    private let urlBuilder: URLBuilderScheme
     private let encoder: JSONEncoder
-    private let timeout: TimeInterval?
 
-    internal init(
-        urlBuilder: URLBuilderScheme = URLBuilder(),
-        encoder: JSONEncoder = JSONEncoder(),
-        timeout: TimeInterval? = nil
-    ) {
-        self.urlBuilder = urlBuilder
+    public init(encoder: JSONEncoder = JSONEncoder()) {
         self.encoder = encoder
-        self.timeout = timeout
     }
     
-    internal func request<Request: NetworkRequest>(from request: Request) -> URLRequest? {
-        guard let url = urlBuilder.url(from: request) else { return nil }
+    public func request(from request: some NetworkRequest) -> URLRequest? {
+        guard let url = url(from: request) else { return nil }
         
         var urlRequest = URLRequest(url: url)
         urlRequest.allHTTPHeaderFields = request.headers?.mapValues(\.description)
         urlRequest.httpMethod = request.method.rawValue
         urlRequest.httpBody = request.body?.data(encoder: encoder)
-        if let timeout = timeout {
+        if let timeout = request.timeout {
             urlRequest.timeoutInterval = timeout
         }
         
         return urlRequest
     }
     
-}
-
-internal struct URLBuilder: URLBuilderScheme {
-    
-    public init() {}
-    
-    public func url<Request: NetworkRequest>(from request: Request) -> URL? {
+    private func url(from request: some NetworkRequest) -> URL? {
         var components = URLComponents(string: "\(request.environment.baseURL)\(request.path)")
         components?.queryItems = request.queryParameters?.queryItems
         return components?.url

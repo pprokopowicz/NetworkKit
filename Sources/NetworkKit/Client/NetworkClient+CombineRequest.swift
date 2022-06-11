@@ -16,7 +16,7 @@ extension NetworkClient {
     /// - Returns: `AnyPublisher` with either given services output type or an error. In case of Networking error it will be of type `NetworkError`.
     public func request<Request: NetworkRequest>(request r: Request) -> AnyPublisher<Request.Output, Error> {
         let subject = PassthroughSubject<Request.Output, Error>()
-        request(request: r) { result in
+        let dataTask = request(request: r) { result in
             switch result {
             case .success(let output):
                 subject.send(output)
@@ -25,6 +25,10 @@ extension NetworkClient {
                 subject.send(completion: .failure(error))
             }
         }
-        return subject.eraseToAnyPublisher()
+        return subject
+            .handleEvents(receiveCancel: {
+                dataTask?.cancel()
+            })
+            .eraseToAnyPublisher()
     }
 }
