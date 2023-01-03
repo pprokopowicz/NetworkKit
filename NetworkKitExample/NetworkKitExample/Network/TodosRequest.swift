@@ -13,6 +13,6 @@ struct TodoService: NetworkRequest {
     
     let method: HTTPMethod = .get
     let path: String = "/todos"
-    var environment: NetworkEnvironment = .default
+    let environment: NetworkEnvironment = .default
     
 }
