@@ -9,5 +9,5 @@ import Foundation
 import NetworkKit
 
 extension NetworkClient {
-    static let shared: NetworkClient = NetworkClient()
+    static let shared: NetworkClient = NetworkClient(middleware: [])
 }

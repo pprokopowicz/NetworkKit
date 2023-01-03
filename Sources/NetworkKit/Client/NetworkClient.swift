@@ -13,6 +13,7 @@ public final class NetworkClient {
     private let requestBuilder: URLRequestBuilderScheme
     private let responseBuilder: ResponseBuilderScheme
     private let session: Session
+    private let middleware: [any Middleware]
     
     /// Initializes client with given parameters. Every parameter has default value.
     ///
@@ -22,11 +23,13 @@ public final class NetworkClient {
     public init(
         requestBuilder: URLRequestBuilderScheme = URLRequestBuilder(),
         responseBuilder: ResponseBuilderScheme = ResponseBuilder(),
-        session: Session = URLSession.shared
+        session: Session = URLSession.shared,
+        middleware: [any Middleware] = []
     ) {
         self.requestBuilder = requestBuilder
         self.responseBuilder = responseBuilder
         self.session = session
+        self.middleware = middleware
     }
     
 }
@@ -42,12 +45,20 @@ extension NetworkClient {
     public func request<Request: NetworkRequest>(request: Request, completion: @escaping (Result<Request.Output, Error>) -> Void) -> DataTask? {
         switch requestBuilder.request(from: request) {
         case .success(let urlRequest):
-            let dataTask = session.task(with: urlRequest) { [weak self] data, response, error in
+            let preparedRequest = middleware.reduce(urlRequest) { partialResult, middleware in
+                middleware.prepare(request: request, urlRequest: partialResult)
+            }
+            
+            let dataTask = session.task(with: preparedRequest) { [weak self] data, response, error in
                 guard let self = self else {
                     completion(.failure(NetworkError<Void>(status: .unknown, response: nil)))
                     return
                 }
-                completion(self.responseBuilder.response(Request.Output.self, errorType: Request.ErrorResponse.self, data: data, response: response, error: error))
+                let result = self.responseBuilder.response(Request.Output.self, errorType: Request.ErrorResponse.self, data: data, response: response, error: error)
+                let processedResult = self.middleware.reduce(result) { partialResult, middleware in
+                    middleware.process(request: request, result: partialResult)
+                }
+                completion(processedResult)
             }
             
             dataTask.resume()
