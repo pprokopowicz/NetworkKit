@@ -18,10 +18,10 @@ public protocol URLRequestBuilderScheme {
 
 public struct URLRequestBuilder: URLRequestBuilderScheme {
     
-    private let jsonBodyEncoder: JSONBodyEncoderScheme
+    private let jsonBodyEncoder: BodyEncoderScheme
 
     public init(
-        jsonBodyEncoder: JSONBodyEncoderScheme = JSONBodyEncoder()
+        jsonBodyEncoder: BodyEncoderScheme = BodyEncoder()
     ) {
         self.jsonBodyEncoder = jsonBodyEncoder
     }
@@ -53,7 +53,7 @@ public struct URLRequestBuilder: URLRequestBuilderScheme {
 
     private func body(from request: some NetworkRequest) -> Result<Data?, Error> {
         switch request.body {
-        case .json(let encodableObject):
+        case .some(let encodableObject):
             switch jsonBodyEncoder.encode(object: encodableObject) {
             case .success(let data):
                 return .success(data)

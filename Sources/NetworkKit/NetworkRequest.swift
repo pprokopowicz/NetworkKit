@@ -27,7 +27,7 @@ public protocol NetworkRequest {
     /// Optional query parameters that are added to the url.
     var queryParameters: [String: CustomStringConvertible]? { get }
     /// Optional body input. Must confrom to `Encodable`. 
-    var body: BodyEncoding? { get }
+    var body: Encodable? { get }
     /// Request timeout.
     var timeout: TimeInterval?  { get }
     
@@ -43,4 +43,5 @@ public extension NetworkRequest {
     var body: Encodable? { nil }
     /// nil
     var timeout: TimeInterval? { nil }
+
 }

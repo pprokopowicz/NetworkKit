@@ -1,5 +1,5 @@
 //
-//  JSONBodyEncoder.swift
+//  BodyEncoder.swift
 //  
 //
 //  Created by Piotr Prokopowicz on 11/06/2022.
@@ -7,11 +7,11 @@
 
 import Foundation
 
-public protocol JSONBodyEncoderScheme {
+public protocol BodyEncoderScheme {
     func encode(object: some Encodable) -> Result<Data, Error>
 }
 
-public struct JSONBodyEncoder: JSONBodyEncoderScheme {
+public struct BodyEncoder: BodyEncoderScheme {
 
     private let encoder: JSONEncoder
 
