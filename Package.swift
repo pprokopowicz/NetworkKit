@@ -16,13 +16,25 @@ let package = Package(
             name: "NetworkKit",
             targets: ["NetworkKit"]
         ),
+        .library(
+            name: "NetworkKitLogMiddleware",
+            targets: ["NetworkKitLogMiddleware"]
+        ),
     ],
     targets: [
         .target(
             name: "NetworkKit",
-            dependencies: []),
+            dependencies: []
+        ),
+        .target(
+            name: "NetworkKitLogMiddleware",
+            dependencies: [
+                "NetworkKit"
+            ]
+        ),
         .testTarget(
             name: "NetworkKitTests",
-            dependencies: ["NetworkKit"]),
+            dependencies: ["NetworkKit"]
+        ),
     ]
 )

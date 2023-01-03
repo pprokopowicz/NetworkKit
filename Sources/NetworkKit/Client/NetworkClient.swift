@@ -17,9 +17,9 @@ public final class NetworkClient {
     
     /// Initializes client with given parameters. Every parameter has default value.
     ///
-    /// - Parameter requestBuilder: Object used to build `URLRequest` from `NetworkRequest`.
-    /// - Parameter responseBuilder: Object used to build response from returned data.
-    /// - Parameter session: Object used as "backend" for making API calls. By default `URLSession` is used, but you can provide your own implementation.
+    /// - Parameter requestBuilder: Used to build `URLRequest` from `NetworkRequest`.
+    /// - Parameter responseBuilder: Used to build response from returned data.
+    /// - Parameter session: Used as "backend" for making API calls. By default `URLSession` is used, but you can provide your own implementation.
     public init(
         requestBuilder: URLRequestBuilderScheme = URLRequestBuilder(),
         responseBuilder: ResponseBuilderScheme = ResponseBuilder(),
@@ -40,7 +40,7 @@ extension NetworkClient {
     ///
     /// - Parameter service: Service object that conforms to `NetworkService` protocol. Has every information that client needs to perform a service call.
     /// - Parameter completion: Completion handler with `Result` with either given services output type or an error. In case of Networking error it will be of type `NetworkError`.
-    /// - Returns: `Cancellable` object used to cancel request.
+    /// - Returns: `Cancellable` Used to cancel request.
     @discardableResult
     public func request<Request: NetworkRequest>(request: Request, completion: @escaping (Result<Request.Output, Error>) -> Void) -> DataTask? {
         switch requestBuilder.request(from: request) {
@@ -55,10 +55,21 @@ extension NetworkClient {
                     return
                 }
                 let result = self.responseBuilder.response(Request.Output.self, errorType: Request.ErrorResponse.self, data: data, response: response, error: error)
-                let processedResult = self.middleware.reduce(result) { partialResult, middleware in
-                    middleware.process(request: request, result: partialResult)
+                
+                Task {
+                    let processedResult = await self.middleware.asyncReduce(result) { partialResult, middleware in
+                        await middleware.process(
+                            client: self,
+                            request: request,
+                            urlRequest: preparedRequest,
+                            result: partialResult,
+                            data: data,
+                            response: response
+                        )
+                    }
+                    
+                    completion(processedResult)
                 }
-                completion(processedResult)
             }
             
             dataTask.resume()
@@ -69,4 +80,17 @@ extension NetworkClient {
         }
     }
     
+}
+
+extension Sequence {
+    func asyncReduce<Result>(
+        _ initialResult: Result,
+        _ nextPartialResult: ((Result, Element) async throws -> Result)
+    ) async rethrows -> Result {
+        var result = initialResult
+        for element in self {
+            result = try await nextPartialResult(result, element)
+        }
+        return result
+    }
 }

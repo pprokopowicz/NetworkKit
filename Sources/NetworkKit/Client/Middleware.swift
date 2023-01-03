@@ -9,7 +9,15 @@ import Foundation
 
 public protocol Middleware {
     func prepare<Request: NetworkRequest>(request: Request, urlRequest: URLRequest) -> URLRequest
-    func process<Request: NetworkRequest>(request: Request, result: Result<Request.Output, Error>) -> Result<Request.Output, Error>
+    
+    func process<Request: NetworkRequest>(
+        client: NetworkClient,
+        request: Request,
+        urlRequest: URLRequest,
+        result: Result<Request.Output, Error>,
+        data: Data?,
+        response: URLResponse?
+    ) async -> Result<Request.Output, Error>
 }
 
 public extension Middleware {
@@ -17,7 +25,15 @@ public extension Middleware {
         urlRequest
     }
     
-    func process<Request: NetworkRequest>(request: Request, result: Result<Request.Output, Error>) -> Result<Request.Output, Error> {
-        result
+    func process<Request: NetworkRequest>(
+        client: NetworkClient,
+        request: Request,
+        urlRequest: URLRequest,
+        result: Result<Request.Output, Error>,
+        data: Data?,
+        response: URLResponse?,
+        completion: (Result<Request.Output, Error>) -> Void
+    ) {
+        completion(result)
     }
 }

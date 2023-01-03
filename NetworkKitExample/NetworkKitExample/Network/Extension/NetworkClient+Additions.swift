@@ -7,7 +7,8 @@
 
 import Foundation
 import NetworkKit
+import NetworkKitLogMiddleware
 
 extension NetworkClient {
-    static let shared: NetworkClient = NetworkClient(middleware: [])
+    static let shared: NetworkClient = NetworkClient(middleware: [NetworkLogMiddleware()])
 }
