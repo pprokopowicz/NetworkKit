@@ -40,21 +40,22 @@ extension NetworkClient {
     /// - Returns: `Cancellable` object used to cancel request.
     @discardableResult
     public func request<Request: NetworkRequest>(request: Request, completion: @escaping (Result<Request.Output, Error>) -> Void) -> DataTask? {
-        guard let urlRequest = requestBuilder.request(from: request) else {
-            completion(.failure(NetworkError<Request.ErrorResponse>(status: .unableToParseRequest, response: nil)))
+        switch requestBuilder.request(from: request) {
+        case .success(let urlRequest):
+            let dataTask = session.task(with: urlRequest) { [weak self] data, response, error in
+                guard let self = self else {
+                    completion(.failure(NetworkError<NetworkEmpty>(status: .unknown, response: nil)))
+                    return
+                }
+                completion(self.responseBuilder.response(Request.Output.self, errorType: Request.ErrorResponse.self, data: data, response: response, error: error))
+            }
+            
+            dataTask.resume()
+            return dataTask
+        case .failure(let error):
+            completion(.failure(error))
             return nil
         }
-        
-        let dataTask = session.task(with: urlRequest) { [weak self] data, response, error in
-            guard let self = self else {
-                completion(.failure(NetworkError<NetworkEmpty>(status: .unknown, response: nil)))
-                return
-            }
-            completion(self.responseBuilder.response(Request.Output.self, errorType: Request.ErrorResponse.self, data: data, response: response, error: error))
-        }
-        
-        dataTask.resume()
-        return dataTask
     }
     
 }

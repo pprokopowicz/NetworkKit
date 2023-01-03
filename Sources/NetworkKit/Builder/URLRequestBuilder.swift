@@ -11,37 +11,58 @@ import Foundation
 
 /// Protocol used to separate creation of `URLRequest` object from `NetworkClient`.
 public protocol URLRequestBuilderScheme {
-    func request<Request: NetworkRequest>(from request: Request) -> URLRequest?
+    func request(from request: some NetworkRequest) -> Result<URLRequest, Error>
 }
 
 // MARK: - Implementation
 
 public struct URLRequestBuilder: URLRequestBuilderScheme {
     
-    private let encoder: JSONEncoder
+    private let jsonBodyEncoder: BodyEncoderScheme
 
-    public init(encoder: JSONEncoder = JSONEncoder()) {
-        self.encoder = encoder
+    public init(
+        jsonBodyEncoder: BodyEncoderScheme = BodyEncoder()
+    ) {
+        self.jsonBodyEncoder = jsonBodyEncoder
     }
     
-    public func request(from request: some NetworkRequest) -> URLRequest? {
-        guard let url = url(from: request) else { return nil }
+    public func request(from request: some NetworkRequest) -> Result<URLRequest, Error> {
+        guard let url = url(from: request) else { return .failure(NetworkError<NetworkEmpty>(status: .unableToParseRequest, response: nil)) }
         
         var urlRequest = URLRequest(url: url)
+        switch body(from: request) {
+        case .success(let data):
+            urlRequest.httpBody = data
+        case .failure(let error):
+            return .failure(error)
+        }
         urlRequest.allHTTPHeaderFields = request.headers?.mapValues(\.description)
         urlRequest.httpMethod = request.method.rawValue
-        urlRequest.httpBody = request.body?.data(encoder: encoder)
         if let timeout = request.timeout {
             urlRequest.timeoutInterval = timeout
         }
         
-        return urlRequest
+        return .success(urlRequest)
     }
     
     private func url(from request: some NetworkRequest) -> URL? {
         var components = URLComponents(string: "\(request.environment.baseURL)\(request.path)")
         components?.queryItems = request.queryParameters?.queryItems
         return components?.url
+    }
+
+    private func body(from request: some NetworkRequest) -> Result<Data?, Error> {
+        switch request.body {
+        case .some(let encodableObject):
+            switch jsonBodyEncoder.encode(object: encodableObject) {
+            case .success(let data):
+                return .success(data)
+            case .failure(let error):
+                return .failure(error)
+            }
+        case .none:
+            return .success(nil)
+        }
     }
     
 }
@@ -52,14 +73,6 @@ fileprivate extension Dictionary where Key == String, Value == CustomStringConve
 
     var queryItems: [URLQueryItem] {
         map { URLQueryItem(name: $0.key, value: $0.value.description) }
-    }
-
-}
-
-fileprivate extension Encodable {
-
-    func data(encoder: JSONEncoder = JSONEncoder()) -> Data? {
-        try? encoder.encode(self)
     }
 
 }

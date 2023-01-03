@@ -43,4 +43,5 @@ public extension NetworkRequest {
     var body: Encodable? { nil }
     /// nil
     var timeout: TimeInterval? { nil }
+
 }
