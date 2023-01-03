@@ -6,7 +6,7 @@
 //
 
 /// Struct containing information about an error returned from a network request.
-public struct NetworkError<Response: Decodable>: Error {
+public struct NetworkError<Response>: Error {
     
     /// Value representing http status code in a form of an enum case.
     public let status: NetworkResponseStatus

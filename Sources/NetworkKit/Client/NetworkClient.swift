@@ -44,7 +44,7 @@ extension NetworkClient {
         case .success(let urlRequest):
             let dataTask = session.task(with: urlRequest) { [weak self] data, response, error in
                 guard let self = self else {
-                    completion(.failure(NetworkError<NetworkEmpty>(status: .unknown, response: nil)))
+                    completion(.failure(NetworkError<Void>(status: .unknown, response: nil)))
                     return
                 }
                 completion(self.responseBuilder.response(Request.Output.self, errorType: Request.ErrorResponse.self, data: data, response: response, error: error))
