@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		242127D1296452F90095BF11 /* NetworkKitLogMiddleware in Frameworks */ = {isa = PBXBuildFile; productRef = 242127D0296452F90095BF11 /* NetworkKitLogMiddleware */; };
 		242F7DA4277B911900CA2066 /* NetworkKitExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242F7DA3277B911900CA2066 /* NetworkKitExampleApp.swift */; };
 		242F7DA6277B911900CA2066 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242F7DA5277B911900CA2066 /* ContentView.swift */; };
 		242F7DA8277B911900CA2066 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 242F7DA7277B911900CA2066 /* Assets.xcassets */; };
@@ -40,6 +41,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				24AA68D3277B92FA0043FE04 /* NetworkKit in Frameworks */,
+				242127D1296452F90095BF11 /* NetworkKitLogMiddleware in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -129,6 +131,7 @@
 			name = NetworkKitExample;
 			packageProductDependencies = (
 				24AA68D2277B92FA0043FE04 /* NetworkKit */,
+				242127D0296452F90095BF11 /* NetworkKitLogMiddleware */,
 			);
 			productName = NetworkKitExample;
 			productReference = 242F7DA0277B911900CA2066 /* NetworkKitExample.app */;
@@ -396,6 +399,10 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		242127D0296452F90095BF11 /* NetworkKitLogMiddleware */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = NetworkKitLogMiddleware;
+		};
 		24AA68D2277B92FA0043FE04 /* NetworkKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = NetworkKit;
