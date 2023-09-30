@@ -5,6 +5,8 @@
 //  Created by Piotr Prokopowicz on 08/12/2020.
 //
 
+import Foundation
+
 /// Protocol used for storing information needed to perform a request.
 public protocol NetworkRequest {
     
@@ -26,6 +28,8 @@ public protocol NetworkRequest {
     var queryParameters: [String: CustomStringConvertible]? { get }
     /// Optional body input. Must confrom to `Encodable`. 
     var body: Encodable? { get }
+    /// Request timeout.
+    var timeout: TimeInterval?  { get }
     
 }
 
@@ -37,5 +41,7 @@ public extension NetworkRequest {
     var queryParameters: [String: CustomStringConvertible]? { nil }
     /// nil
     var body: Encodable? { nil }
-    
+    /// nil
+    var timeout: TimeInterval? { nil }
+
 }

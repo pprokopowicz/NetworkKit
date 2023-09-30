@@ -9,6 +9,7 @@ import Foundation
 
 // MARK: - Protocol
 
+/// Protocol used to separate creation of response object from `NetworkClient`.
 public protocol ResponseBuilderScheme {
     func response<Output: Decodable, ErrorOutput: Decodable>(
         _ outputType: Output.Type,
